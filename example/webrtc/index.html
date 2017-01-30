@@ -1,0 +1,44 @@
+<!doctype html >
+<html ng-app="bm-example">
+  <head>
+    <script src="../../node_modules/getusermedia/getusermedia.bundle.js"></script>
+    <script src="../../node_modules/angular/angular.js"></script>
+
+    <script src="../../dist/bm-angular-camera.js"></script>
+
+
+    <script src="example.js"></script>
+  </head>
+  <body ng-controller="example">
+    <h1>WebRTC example</h1>
+
+    <h1>Resoloutions</h1>
+
+    <p>Here allows changing of the resolution on the fly, using the on error and on open callback functions</p>
+
+    <p>Requested Dimensions: {{resWidth}} x {{resHeight}}</p>
+    <bm-camera ng-model="stillImage" width="{{resWidth}}" height="{{resHeight}}" on-camera-error="cameraError(err)" on-camera-open="cameraOpen(videoEl)">
+    <p> Actual video size: {{actualWidth}} x {{actualHeight}}</p>
+      <div class="btn-group">
+        <button class="btn" data-ng-click="setRes(320, 240)">320 x 240 (QVGA)</button>
+        <button class="btn" data-ng-click="setRes(640, 480)">640 x 480 (VGA)</button>
+        <button class="btn" data-ng-click="setRes(1280, 720)">1280 x 720 (HD)</button>
+        <button class="btn" data-ng-click="setRes(1920, 1080)">1920 x 1080 (Full HD)</button>
+      </div>
+    </bm-camera>
+
+    <!-- if you do want to include your own image manipulation buttons -->
+    <h1>Using Image manipulation library</h1>
+    <canvas id="temp" style="display:none"></canvas>
+
+    <bm-camera ng-model="stillImage2" width="{{width}}" height="{{height}}" on-camera-error="cameraError(err)">
+
+      <img class="ng-hide" ng-src="{{stillImage2}}" camera-target ng-show="stillImage2"/>
+      <div class="btn-group row" data-ng-show="stillImage2">
+        <button class="btn" data-ng-click="rotateLeft(stillImage2)">Rotate Left</button>
+        <button class="btn" data-ng-click="rotateRight(stillImage2)">Rotate Right</button>
+      </div>
+    </bm-camera>
+
+  </body>
+</html>
