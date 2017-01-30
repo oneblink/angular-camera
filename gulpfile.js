@@ -103,18 +103,21 @@ gulp.task('clean', () => {
   return del(DEST)
 })
 
-// gulp.task('test-webrtc', (done) => {
-//   new KarmaServer({
-//     configFile: path.join(__dirname, './karma.conf.js'),
-//     singleRun: false,
-//     files: [
-//       'node_modules/babel-helpers/index.js',
-//       'node_modules/getusermedia/getusermedia.bundle.js',
-//       'dist/bm-camera-webrtc.js',
-//       'test/**/*.js'
-//     ]
-//   }, done).start()
-// })
+gulp.task('test', (done) => {
+  new KarmaServer({
+    configFile: path.join(__dirname, './karma.conf.js'),
+    singleRun: false,
+    files: [
+      'node_modules/babel-helpers/index.js',
+      'node_modules/angular/angular.js',
+      'node_modules/angular-mocks/angular-mocks.js',
+      'node_modules/getusermedia/getusermedia.bundle.js',
+      'dist/bm-angular-camera.js',
+      // 'src/angular-camera.js',
+      'test/**/*.js'
+    ]
+  }, done).start()
+})
 
 gulp.task('build', () => {
   let cb = () => true
