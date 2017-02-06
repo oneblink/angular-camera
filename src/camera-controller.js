@@ -28,7 +28,7 @@ function CameraController ($scope, $element, Camera) {
     return Object.assign({}, vm.cameraOptions, {targetWidth: vm.width, targetHeight: vm.height})
   }
 
-  const getOptions = () => vm.webRTC ?  toWebRTCOptions() : toCordovaOptions()
+  const getOptions = () => vm.webRTC ? toWebRTCOptions() : toCordovaOptions()
 
   function setCameraOptions () {
     vm.cameraOptions = getOptions()
@@ -84,18 +84,19 @@ function CameraController ($scope, $element, Camera) {
     return vm.camera.open()
              .then(() => vm.camera.getDevices())
              .then(() => $scope.$apply(() => {
-                vm.isCameraOpen = true && vm.webRTC
-                vm.error = null
-                vm.onCameraOpen({videoEl: vm.videoEl})
-              }))
+               vm.isCameraOpen = true && vm.webRTC
+               vm.error = null
+               vm.onCameraOpen({videoEl: vm.videoEl})
+             }))
              .catch((err) => {
-                $scope.$apply(() => {
-                  vm.error = err.name === 'NotAllowedError' ? 'You must grant access to your webcam to take photos'
+               $scope.$apply(() => {
+                 vm.error = err.name === 'NotAllowedError' ? 'You must grant access to your webcam to take photos'
                                                             : null
-                  console.warn(`There was an error opening the camera: ${err}`)
-                  vm.onCameraError({err: err})
-                })
-              })
+                  // eslint-disable-next-line no-console
+                 console.warn(`There was an error opening the camera: ${err}`)
+                 vm.onCameraError({err: err})
+               })
+             })
   }
 
   vm.closeCamera = function closeCamera () {
@@ -112,6 +113,7 @@ function CameraController ($scope, $element, Camera) {
       })
     }).catch((err) => {
       vm.error = err.toString()
+      // eslint-disable-next-line no-console
       console.warn(`There was an error opening the camera: ${err}`)
       vm.onCameraError({err: err})
     })

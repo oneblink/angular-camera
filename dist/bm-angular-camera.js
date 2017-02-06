@@ -14,24 +14,24 @@
   (factory());
 }(this, (function () { 'use strict';
 
-const DEFAULT_WIDTH = 640;
-const DEFAULT_HEIGHT = 480;
-const DEFAULT_THUMB_WIDTH = 100;
-const DEFAULT_THUMB_HEIGHT = 100;
+var DEFAULT_WIDTH = 640;
+var DEFAULT_HEIGHT = 480;
+var DEFAULT_THUMB_WIDTH = 100;
+var DEFAULT_THUMB_HEIGHT = 100;
 
 CameraController.$inject = ['$scope', '$element', 'Camera'];
 function CameraController($scope, $element, Camera) {
-  const vm = this;
-  let initialized = false;
+  var vm = this;
+  var initialized = false;
 
   function toWebRTCOptions() {
-    const userDefinedOptions = vm.cameraOptions && vm.cameraOptions.video || {};
-    const newVideoOptions = {
+    var userDefinedOptions = vm.cameraOptions && vm.cameraOptions.video || {};
+    var newVideoOptions = {
       width: { exact: +vm.width },
       height: { exact: +vm.height }
     };
 
-    const mergedVideoOptions = Object.assign({}, userDefinedOptions, newVideoOptions);
+    var mergedVideoOptions = Object.assign({}, userDefinedOptions, newVideoOptions);
     return {
       audio: false,
       video: mergedVideoOptions
@@ -42,14 +42,16 @@ function CameraController($scope, $element, Camera) {
     return Object.assign({}, vm.cameraOptions, { targetWidth: vm.width, targetHeight: vm.height });
   }
 
-  const getOptions = () => vm.webRTC ? toWebRTCOptions() : toCordovaOptions();
+  var getOptions = function getOptions() {
+    return vm.webRTC ? toWebRTCOptions() : toCordovaOptions();
+  };
 
   function setCameraOptions() {
     vm.cameraOptions = getOptions();
     vm.camera.defaultConstraints = vm.cameraOptions;
   }
 
-  vm.$onInit = () => {
+  vm.$onInit = function () {
     vm.videoEl = $element.find('video')[0];
     vm.imgEl = $element[0].querySelector('[camera-target]');
     vm.camera = Camera(vm.videoEl);
@@ -71,12 +73,12 @@ function CameraController($scope, $element, Camera) {
     initialized = true;
   };
 
-  vm.$onChanges = changesObj => {
+  vm.$onChanges = function (changesObj) {
     if (!changesObj) {
       return;
     }
 
-    for (let prop in changesObj) {
+    for (var prop in changesObj) {
       if (prop === 'cameraOptions') {
         setCameraOptions(changesObj[prop].currentValue);
       } else {
@@ -95,14 +97,19 @@ function CameraController($scope, $element, Camera) {
   };
 
   vm.openCamera = function openCamera() {
-    return vm.camera.open().then(() => vm.camera.getDevices()).then(() => $scope.$apply(() => {
-      vm.isCameraOpen = true && vm.webRTC;
-      vm.error = null;
-      vm.onCameraOpen({ videoEl: vm.videoEl });
-    })).catch(err => {
-      $scope.$apply(() => {
+    return vm.camera.open().then(function () {
+      return vm.camera.getDevices();
+    }).then(function () {
+      return $scope.$apply(function () {
+        vm.isCameraOpen = true && vm.webRTC;
+        vm.error = null;
+        vm.onCameraOpen({ videoEl: vm.videoEl });
+      });
+    }).catch(function (err) {
+      $scope.$apply(function () {
         vm.error = err.name === 'NotAllowedError' ? 'You must grant access to your webcam to take photos' : null;
-        console.warn(`There was an error opening the camera: ${ err }`);
+        // eslint-disable-next-line no-console
+        console.warn('There was an error opening the camera: ' + err);
         vm.onCameraError({ err: err });
       });
     });
@@ -115,14 +122,15 @@ function CameraController($scope, $element, Camera) {
 
   vm.takePhoto = function takePhoto() {
     vm.isCameraOpen = false;
-    return vm.camera.getPicture().then(img => {
-      $scope.$apply(() => {
+    return vm.camera.getPicture().then(function (img) {
+      $scope.$apply(function () {
         vm.ngModel.$setViewValue(img);
         vm.closeCamera();
       });
-    }).catch(err => {
+    }).catch(function (err) {
       vm.error = err.toString();
-      console.warn(`There was an error opening the camera: ${ err }`);
+      // eslint-disable-next-line no-console
+      console.warn('There was an error opening the camera: ' + err);
       vm.onCameraError({ err: err });
     });
   };
@@ -152,12 +160,11 @@ var CameraComponent = {
   }
 };
 
-const privateVars = new WeakMap();
+var privateVars = new WeakMap();
 
-function CordovaCamera () {
+function CordovaCamera() {
   /* eslint-disable no-undef */
-  this.availableDevices = [{deviceId: Camera.Direction.BACK, label: 'Rear Camera'},
-                           {deviceId: Camera.Direction.FRONT, label: 'Front Camera'}];
+  this.availableDevices = [{ deviceId: Camera.Direction.BACK, label: 'Rear Camera' }, { deviceId: Camera.Direction.FRONT, label: 'Front Camera' }];
 
   this.defaultConstraints = {
     cameraDirection: Camera.Direction.BACK,
@@ -169,63 +176,79 @@ function CordovaCamera () {
   };
   /* eslint-enable no-undef */
 
-  privateVars.set(this, {result: null});
+  privateVars.set(this, { result: null });
 }
 
 // instance methods
 CordovaCamera.prototype.getDevices = function () {
-  return Promise.resolve(this.availableDevices)
+  return Promise.resolve(this.availableDevices);
 };
 
 CordovaCamera.prototype.useDevice = function (device) {
   if (!('deviceId' in device)) {
-    throw new TypeError('Invalid device selected, must be of type MediaDeviceInfo')
+    throw new TypeError('Invalid device selected, must be of type MediaDeviceInfo');
   }
 
   this.defaultConstraints.cameraDirection = device.deviceId;
 };
 
-CordovaCamera.prototype.open = function (constraints = this.defaultConstraints) {
+CordovaCamera.prototype.open = function () {
+  var _this = this;
+
+  var constraints = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this.defaultConstraints;
+
   constraints = Object.assign({}, this.defaultConstraints, constraints);
 
-  return new Promise((resolve, reject) => {
-    const onSuccess = (data) => {
-      privateVars.get(this).result = data;
+  return new Promise(function (resolve, reject) {
+    var onSuccess = function onSuccess(data) {
+      privateVars.get(_this).result = data;
       resolve(data);
     };
     navigator.camera.getPicture(onSuccess, reject, constraints);
-  })
+  });
 };
 
-CordovaCamera.prototype.getPicture = function (constraints = this.defaultConstraints) {
-  const privates = privateVars.get(this);
+CordovaCamera.prototype.getPicture = function () {
+  var constraints = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this.defaultConstraints;
+
+  var privates = privateVars.get(this);
 
   if (!privates.result) {
-    return this.open(constraints).then(() => {
-      const result = privates.result;
+    return this.open(constraints).then(function () {
+      var result = privates.result;
       privates.result = null;
-      return result
-    })
+      return result;
+    });
   }
 
-  return Promise.resolve(privates.result)
+  return Promise.resolve(privates.result);
 };
 
-function cordovaFactory (...args) {
-  // allows constructor to accept variable number of arguments.
-  args.unshift(null);
-  return new (CordovaCamera.bind.apply(CordovaCamera, args))()
-}
-
-const privateVars$1 = new WeakMap();
-
-// constructor
-function WebRTCCamera (videoEl) {
-  if (!videoEl) {
-    throw new TypeError('WebRTCCamera expects a video element during instansiation')
+function cordovaFactory() {
+  for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+    args[_key] = arguments[_key];
   }
 
-  this.defaultConstraints = {video: true, audio: false};
+  // allows constructor to accept variable number of arguments.
+  args.unshift(null);
+  return new (CordovaCamera.bind.apply(CordovaCamera, args))();
+}
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
+  return typeof obj;
+} : function (obj) {
+  return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+};
+
+var privateVars$1 = new WeakMap();
+
+// constructor
+function WebRTCCamera(videoEl) {
+  if (!videoEl) {
+    throw new TypeError('WebRTCCamera expects a video element during instansiation');
+  }
+
+  this.defaultConstraints = { video: true, audio: false };
   this.availableDevices = [];
 
   privateVars$1.set(this, {
@@ -242,108 +265,129 @@ WebRTCCamera.prototype.useDevice = function (device) {
   this.close();
 
   if (!('deviceId' in device)) {
-    throw new TypeError('Invalid device selected, must be of type MediaDeviceInfo')
+    throw new TypeError('Invalid device selected, must be of type MediaDeviceInfo');
   }
 
-  const newConstraints = typeof this.defaultConstraints.video === 'object'
-                         ? this.defaultConstraints.video
-                         : {};
+  var newConstraints = _typeof(this.defaultConstraints.video) === 'object' ? this.defaultConstraints.video : {};
 
-  newConstraints.deviceId = {exact: device.deviceId};
+  newConstraints.deviceId = { exact: device.deviceId };
   this.defaultConstraints.video = newConstraints;
 
-  return this.open()
+  return this.open();
 };
 
 WebRTCCamera.prototype.getDevices = function () {
+  var _this = this;
+
   if (!privateVars$1.get(this).authorised) {
-    return Promise.resolve([])
+    return Promise.resolve([]);
   }
 
   if (!navigator.mediaDevices || !navigator.mediaDevices.enumerateDevices) {
-    return Promise.reject(new Error('Media Devices API not supported in this browser'))
+    return Promise.reject(new Error('Media Devices API not supported in this browser'));
   }
 
-  return navigator.mediaDevices.enumerateDevices().then((devices) => {
-    this.availableDevices = devices.filter((d) => d.kind.toLowerCase() === 'videoinput');
+  return navigator.mediaDevices.enumerateDevices().then(function (devices) {
+    _this.availableDevices = devices.filter(function (d) {
+      return d.kind.toLowerCase() === 'videoinput';
+    });
 
-    return this.availableDevices
-  })
+    return _this.availableDevices;
+  });
 };
 
-WebRTCCamera.prototype.open = function (constraints = this.defaultConstraints) {
+WebRTCCamera.prototype.open = function () {
+  var _this2 = this;
+
+  var constraints = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this.defaultConstraints;
+
   constraints = Object.assign({}, this.defaultConstraints, constraints);
 
-  return new Promise((resolve, reject) => {
+  return new Promise(function (resolve, reject) {
     // eslint-disable-next-line
-    getUserMedia(constraints, (err, stream) => {
+    getUserMedia(constraints, function (err, stream) {
       if (err) {
-        return reject(err)
+        return reject(err);
       }
 
-      const videoTracks = stream.getVideoTracks();
-      const vars = privateVars$1.get(this);
+      var videoTracks = stream.getVideoTracks();
+      var vars = privateVars$1.get(_this2);
       vars.authorised = true;
 
       if (!videoTracks.length) {
         vars.stream = null;
         vars.videoTrack = null;
 
-        return reject(new Error('Could not get a video track from stream'))
+        return reject(new Error('Could not get a video track from stream'));
       }
 
-      vars.videoEl.addEventListener('canplay', resolve, {once: true});
+      vars.videoEl.addEventListener('canplay', resolve, { once: true });
 
       vars.videoTrack = videoTracks[0];
       vars.stream = stream;
       vars.videoEl.srcObject = stream;
     });
-  })
+  });
 };
 
 WebRTCCamera.prototype.getPicture = function () {
   if (!privateVars$1.get(this).authorised) {
     // eslint-disable-next-line
-    return Promise.reject(new DOMException('User has not authorised use of the camera', 'NotAllowedError'))
+    return Promise.reject(new DOMException('User has not authorised use of the camera', 'NotAllowedError'));
   }
 
-  const vars = privateVars$1.get(this);
-  const canvas = document.createElement('canvas');
-  const ctx = canvas.getContext('2d');
-  const videoEl = vars.videoEl;
+  var vars = privateVars$1.get(this);
+  var canvas = document.createElement('canvas');
+  var ctx = canvas.getContext('2d');
+  var videoEl = vars.videoEl;
 
   canvas.width = videoEl.videoWidth;
   canvas.height = videoEl.videoHeight;
   ctx.drawImage(vars.videoEl, 0, 0);
 
-  return Promise.resolve(canvas.toDataURL('image/png'))
+  return Promise.resolve(canvas.toDataURL('image/png'));
 };
 
 WebRTCCamera.prototype.close = function () {
-  const track = privateVars$1.get(this).videoTrack;
+  var track = privateVars$1.get(this).videoTrack;
   track && track.stop();
 };
 
-function webRTCFactory (...args) {
-  // allows constructor to accept variable number of arguments.
-  args.unshift(null);
-  return new (WebRTCCamera.bind.apply(WebRTCCamera, args))()
-}
-
-function cameraFactory (...args) {
-  const useCordova = !!(window.Camera && navigator.camera);
-
-  if (useCordova) {
-    return cordovaFactory.apply(null, args)
+function webRTCFactory() {
+  for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+    args[_key] = arguments[_key];
   }
 
-  return webRTCFactory.apply(null, args)
+  // allows constructor to accept variable number of arguments.
+  args.unshift(null);
+  return new (WebRTCCamera.bind.apply(WebRTCCamera, args))();
+}
+
+function cameraFactory() {
+  var useCordova = !!(window.Camera && navigator.camera);
+
+  for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+    args[_key] = arguments[_key];
+  }
+
+  if (useCordova) {
+    return cordovaFactory.apply(null, args);
+  }
+
+  return webRTCFactory.apply(null, args);
 }
 
 function CameraService() {
-  return (...args) => cameraFactory.apply(cameraFactory, args);
+  return function () {
+    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    return cameraFactory.apply(cameraFactory, args);
+  };
 }
 
+// eslint-disable-next-line no-undef
 angular.module('bmCamera', []).service('Camera', CameraService).component('bmCamera', CameraComponent);
 
 })));

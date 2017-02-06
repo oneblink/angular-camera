@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "gulp test",
     "flow_check": "flow check",
     "eslint": "eslint --fix --cache .",
     "fixpack": "fixpack"
@@ -38,6 +38,7 @@
     "karma-firefox-launcher": "^1.0.0",
     "karma-jasmine": "^1.1.0",
     "karma-rollup-plugin": "^0.2.4",
+    "pump": "^1.0.2",
     "rollup": "^0.37.2",
     "rollup-plugin-babel": "^2.7.1",
     "rollup-plugin-commonjs": "^6.0.0",
