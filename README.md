@@ -75,10 +75,10 @@ Called once the camera has been opened and passed the HTML video element used to
 
 ### onCameraError(err)
 
-Arguments: err (Error)[https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia%20#Errors]
+Arguments: err [Error](https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia%20#Errors)
 
 Called if there was an error in opening the camera. Usually this would be if the user has not granted access to the camera or if you have specified a size that the webcam does not support
 
 ## Styling
 
-By default we do not apply any styling to the component. We use the (BEM)[https://en.bem.info/] naming syntax for our class selectors and these are outlined in the the (CSS Documentation)[docs/css-selectors.md]
+By default we do not apply any styling to the component. We use the [BEM](https://en.bem.info/) naming syntax for our class selectors and these are outlined in the the [CSS Documentation](docs/css-selectors.md)
