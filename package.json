@@ -1,18 +1,11 @@
 {
   "name": "@blinkmobile/angular-camera",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "gulp test",
-    "flow_check": "flow check",
-    "eslint": "eslint --fix --cache .",
-    "fixpack": "fixpack",
-    "posttest": "npm run eslint && npm run fixpack"
-  },
-  "keywords": [],
   "author": "Simon Dobie <simon@blinkmobile.com.au> (https://github.com/simonmarklar)",
-  "license": "MIT",
+  "dependencies": {
+    "@blinkmobile/camera": "0.0.4",
+    "angular": "^1.6.1"
+  },
   "devDependencies": {
     "angular": "^1.6.1",
     "angular-mocks": "^1.6.1",
@@ -36,9 +29,13 @@
     "karma": "^1.4.1",
     "karma-babel-preprocessor": "^6.0.1",
     "karma-chrome-launcher": "^2.0.0",
+    "karma-detect-browsers": "^2.2.4",
+    "karma-edge-launcher": "^0.2.0",
     "karma-firefox-launcher": "^1.0.0",
+    "karma-ie-launcher": "^1.0.0",
     "karma-jasmine": "^1.1.0",
     "karma-rollup-plugin": "^0.2.4",
+    "karma-safari-launcher": "^1.0.0",
     "pump": "^1.0.2",
     "rollup": "^0.37.2",
     "rollup-plugin-babel": "^2.7.1",
@@ -52,8 +49,14 @@
     "node": ">=7",
     "npm": ">=3"
   },
-  "dependencies": {
-    "@blinkmobile/camera": "0.0.4",
-    "angular": "^1.6.1"
+  "keywords": [],
+  "license": "MIT",
+  "main": "index.js",
+  "scripts": {
+    "eslint": "eslint --fix --cache .",
+    "fixpack": "fixpack",
+    "flow_check": "flow check",
+    "posttest": "npm run eslint && npm run fixpack",
+    "test": "gulp test-single-run"
   }
 }

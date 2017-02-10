@@ -13,8 +13,8 @@ function devBanner (pkg) {
 `
 }
 
-function prodBanner(pkg) {
- return `/*
+function prodBanner (pkg) {
+  return `/*
  * ${pkg.name}: v${pkg.version} | ${pkg.homepage}
  * (c) ${new Date(Date.now()).getFullYear()} BlinkMobile | Released under the ${pkg.license} license
  */
