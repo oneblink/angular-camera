@@ -53,11 +53,7 @@ module.exports = function (config) {
         }
         // Replace Chrome with ChromeTravisCI for travis builds
         if (process.env.TRAVIS) {
-          var chromeIndex = availableBrowsers.indexOf('Chrome')
-
-          if (chromeIndex !== -1) {
-            availableBrowsers[chromeIndex] = 'ChromeTravisCI'
-          }
+          return ['ChromeTravisCI']
         }
         return availableBrowsers
       },
