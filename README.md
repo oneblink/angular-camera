@@ -38,13 +38,14 @@ This component supports transclusion, easily allowing you to add your own button
 
 ```html
 <bm-camera ng-model="myStillImage" width="320" height="240" on-camera-error="myErrorHandler(err)">
-
   <button ng-click="rotate(-90, myStillImage)">Rotate Left</button>
   <button ng-click="rotate(90, myStillImage)">Rotate Right</button>
-
 </bm-camera>
 ```
 
+# Image Display
+
+The captured image is stored in the `ng-model`, and displayed by a HTML `<img class="bm-camera__image" />` element.
 
 # Configuration Options
 
@@ -77,3 +78,7 @@ Called once the camera has been opened and passed the HTML video element used to
 Arguments: err (Error)[https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia%20#Errors]
 
 Called if there was an error in opening the camera. Usually this would be if the user has not granted access to the camera or if you have specified a size that the webcam does not support
+
+## Styling
+
+By default we do not apply any styling to the component. We use the (BEM)[https://en.bem.info/] naming syntax for our class selectors and these are outlined in the the (CSS Documentation)[docs/css-selectors.md]
