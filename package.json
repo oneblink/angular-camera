@@ -49,14 +49,19 @@
     "rollup-plugin-inject": "^2.0.0",
     "rollup-plugin-node-resolve": "^2.0.0"
   },
+  "directories": {
+    "examples": "example",
+    "test": "test"
+  },
   "engines": {
     "node": ">=7",
     "npm": ">=3"
   },
+  "files": ["dist"],
   "homepage": "https://github.com/blinkmobile/angular-camera#readme",
   "keywords": [],
   "license": "MIT",
-  "main": "index.js",
+  "main": "dist/bm-angular-camera.js",
   "repository": {
     "type": "git",
     "url": "blinkmobile/angular-camera"
