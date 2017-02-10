@@ -1,11 +1,6 @@
 /*
- * @blinkmobile/angular-camera: v1.0.0
- * undefined
- *
- * Copyright 2017 BlinkMobile
- * Released under the ISC license
- *
- * 
+ * @blinkmobile/angular-camera: v1.0.0 | https://github.com/blinkmobile/angular-camera#readme
+ * (c) 2017 BlinkMobile | Released under the MIT license
  */
 
 (function (global, factory) {
