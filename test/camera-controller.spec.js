@@ -5,26 +5,24 @@ const DEFAULT_HEIGHT = 480
 
 function makeCameraServiceInjector (serviceOverrides) {
   return module(function ($provide) {
-      function mockCameraService () {
-        return Object.assign({
-          open: () => Promise.resolve(),
-          getPicture: () => Promise.resolve(),
-          useDevice: () => Promise.resolve(),
-          getDevices: () => Promise.resolve([{deviceId: 'test-device'}]),
-          close: () => true,
-          defaultConstraints: {audio: false, video: true}
-        }, serviceOverrides)
-      }
+    function mockCameraService () {
+      return Object.assign({
+        open: () => Promise.resolve(),
+        getPicture: () => Promise.resolve(),
+        useDevice: () => Promise.resolve(),
+        getDevices: () => Promise.resolve([{deviceId: 'test-device'}]),
+        close: () => true,
+        defaultConstraints: {audio: false, video: true}
+      }, serviceOverrides)
+    }
 
-      $provide.value('Camera', mockCameraService)
-    })
+    $provide.value('Camera', mockCameraService)
+  })
 }
 
 describe('Camera Component - Access Granted', () => {
   let $componentController
-  let $injector
   let $rootScope
-  let element
 
   let ctrl = null
 
@@ -35,7 +33,6 @@ describe('Camera Component - Access Granted', () => {
   beforeEach(inject((_$componentController_, _$injector_, _$rootScope_) => {
     $componentController = _$componentController_
     $rootScope = _$rootScope_
-    $injector = _$injector_
   }))
 
   describe('init', () => {
@@ -189,9 +186,7 @@ describe('Camera Component - Access Granted', () => {
 
 describe('Camera Component - Access Denied', () => {
   let $componentController
-  let $injector
   let $rootScope
-  let element
   let cameraOpenSpy
   let cameraErrorSpy
 
@@ -206,7 +201,6 @@ describe('Camera Component - Access Denied', () => {
   beforeEach(inject((_$componentController_, _$injector_, _$rootScope_) => {
     $componentController = _$componentController_
     $rootScope = _$rootScope_
-    $injector = _$injector_
   }))
 
   beforeEach(() => {
