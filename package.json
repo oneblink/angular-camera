@@ -1,7 +1,11 @@
 {
   "name": "@blinkmobile/angular-camera",
+  "description": "An angular wrapper around @blinkmobile/camera",
   "version": "1.0.0",
   "author": "Simon Dobie <simon@blinkmobile.com.au> (https://github.com/simonmarklar)",
+  "bugs": {
+    "url": "https://github.com/blinkmobile/angular-camera/issues"
+  },
   "dependencies": {
     "@blinkmobile/camera": "0.0.4",
     "angular": "^1.6.1"
@@ -49,9 +53,14 @@
     "node": ">=7",
     "npm": ">=3"
   },
+  "homepage": "https://github.com/blinkmobile/angular-camera#readme",
   "keywords": [],
   "license": "MIT",
   "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "blinkmobile/angular-camera"
+  },
   "scripts": {
     "eslint": "eslint --fix --cache .",
     "fixpack": "fixpack",

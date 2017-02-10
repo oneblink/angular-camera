@@ -33,7 +33,7 @@ const FILENAME = 'bm-angular-camera.js'
 const MODULE_FORMAT = 'umd'
 const MODULE_NAME = 'bmCameraFactory'
 
-const banner = PROD_BUILD ? prodBanner(pkg) : devBanner(pkg)
+let banner = PROD_BUILD ? prodBanner(pkg) : devBanner(pkg)
 
 const makeBundle = function (entry, destFilename) {
   // notify the developer about what is being built
@@ -124,6 +124,8 @@ gulp.task('build', (done) => {
 })
 
 gulp.task('build-prod', (done) => {
+  // force the banner to be production
+  banner = prodBanner(pkg)
   makeBundle(ENTRY_POINT, FILENAME).then(minify(FILENAME)(done))
 })
 
