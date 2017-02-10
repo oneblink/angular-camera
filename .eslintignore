@@ -1,1 +1,6 @@
 *.html
+
+dist/
+output/
+example/
+node_modules/

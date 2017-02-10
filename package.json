@@ -7,11 +7,12 @@
     "test": "gulp test",
     "flow_check": "flow check",
     "eslint": "eslint --fix --cache .",
-    "fixpack": "fixpack"
+    "fixpack": "fixpack",
+    "posttest": "npm run eslint && npm run fixpack"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "Simon Dobie <simon@blinkmobile.com.au> (https://github.com/simonmarklar)",
+  "license": "MIT",
   "devDependencies": {
     "angular": "^1.6.1",
     "angular-mocks": "^1.6.1",
