@@ -1,36 +1,54 @@
-<div class="bm-camera-container">
-  <div class="bm-camera-preview-container">
-    <video class="bm-camera-video" autoplay width="{{$ctrl.width}}" height="{{$ctrl.height}}" ng-show="$ctrl.isCameraOpen" width="{{$ctrl.width}}" height="{{$ctrl.height}}"></video>
+<div class="bm-camera">
+  <div class="bm-camera__image-container">
+    <video class="bm-camera__video"
+            autoplay
+            width="{{$ctrl.width}}"
+            height="{{$ctrl.height}}"
+            ng-show="$ctrl.isCameraOpen"
+            width="{{$ctrl.width}}"
+            height="{{$ctrl.height}}"></video>
+    <img ng-src="{{$ctrl.ngModel.$viewValue}}"
+          camera-target
+          width="{{$ctrl.thumbWidth}}"
+          height="{{$ctrl.thumbHeight}}"
+          ng-show="$ctrl.ngModel.$viewValue"
+          class="bm-camera__image ng-hide" />
     <!-- allows the developer to include their own image manipulation controls -->
-    <div ng-transclude>
-      <!-- fallback if no target and image processing tools provided -->
-      <img ng-src="{{$ctrl.ngModel.$viewValue}}"
-            camera-target
-            width="{{$ctrl.thumbWidth}}"
-            height="{{$ctrl.thumbHeight}}"
-            ng-show="$ctrl.ngModel.$viewValue"
-            class="bm-camera-still-image ng-hide"/>
-    </div>
+    <div ng-transclude />
   </div>
-  <div class="bm-camera-selector-container"
+  <div class="bm-camera__selector-container"
        ng-show="$ctrl.camera.availableDevices.length > 1">
-    <select class="bm-camera-selector"
+    <select class="bm-camera__selector"
             ng-model="$ctrl.selectedDevice"
             ng-options="device.label for device in $ctrl.camera.availableDevices"
             ng-change="$ctrl.useDevice()">
 
     </select>
   </div>
-  <div ng-if="$ctrl.webRTC">
-    <button class="btn" name="open-camera" ng-click="$ctrl.openCamera()" ng-hide="$ctrl.isCameraOpen">Open Camera</button>
-    <button class="btn ng-hide" name="close-camera" ng-click="$ctrl.closeCamera()" ng-show="$ctrl.isCameraOpen">Close Camera</button>
-    <button class="btn" name="take-photo" ng-click="$ctrl.takePhoto()" ng-show="$ctrl.isCameraOpen">Take Photo</button>
+  <div ng-if="$ctrl.webRTC"
+        class="bm-camera__button-container">
+    <button class="bm-btn bm-btn__open"
+            name="open-camera"
+            ng-click="$ctrl.openCamera()"
+            ng-hide="$ctrl.isCameraOpen">Open Camera</button>
+    <button class="bm-btn bm-btn__close ng-hide"
+            name="close-camera"
+            ng-click="$ctrl.closeCamera()"
+            ng-show="$ctrl.isCameraOpen">Close Camera</button>
+    <button class="bm-btn bm-btn__take-photo"
+            name="take-photo"
+            ng-click="$ctrl.takePhoto()"
+            ng-show="$ctrl.isCameraOpen">Take Photo</button>
 
-    <div class="bm-field-error" ng-show="$ctrl.error">
-      <p>{{::$ctrl.error}}</p>
+    <div class="bm-error"
+          ng-show="$ctrl.error">
+      <p class="bm-error__text">{{::$ctrl.error}}</p>
     </div>
   </div>
-  <div ng-if="!$ctrl.webRTC">
-    <button class="btn" name="open-camera" ng-click="$ctrl.takePhoto()">Take Photo</button>
+  <div ng-if="!$ctrl.webRTC"
+        class="bm-camera__button-container">
+    <button class="bm-btn bm-btn__take-photo"
+            name="open-camera"
+            ng-click="$ctrl.takePhoto()">Take Photo</button>
   </div>
 </div>
