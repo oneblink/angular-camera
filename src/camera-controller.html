@@ -27,15 +27,15 @@
   </div>
   <div ng-if="$ctrl.webRTC"
         class="bm-camera__button-container">
-    <button class="bm-btn bm-btn__open"
+    <button class="bm-button bm-button__open"
             name="open-camera"
             ng-click="$ctrl.openCamera()"
             ng-hide="$ctrl.isCameraOpen">Open Camera</button>
-    <button class="bm-btn bm-btn__close ng-hide"
+    <button class="bm-button bm-button__close ng-hide"
             name="close-camera"
             ng-click="$ctrl.closeCamera()"
             ng-show="$ctrl.isCameraOpen">Close Camera</button>
-    <button class="bm-btn bm-btn__take-photo"
+    <button class="bm-button bm-button__take-photo"
             name="take-photo"
             ng-click="$ctrl.takePhoto()"
             ng-show="$ctrl.isCameraOpen">Take Photo</button>
@@ -47,7 +47,7 @@
   </div>
   <div ng-if="!$ctrl.webRTC"
         class="bm-camera__button-container">
-    <button class="bm-btn bm-btn__take-photo"
+    <button class="bm-button bm-button__take-photo"
             name="open-camera"
             ng-click="$ctrl.takePhoto()">Take Photo</button>
   </div>

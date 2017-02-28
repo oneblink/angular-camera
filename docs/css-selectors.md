@@ -9,10 +9,10 @@ We use the BEM naming conventions, with the following classes
 - `.bm-camera__selector-container`
 - `.bm-camera__selector`
 - `.bm-camera__button-container`
-- `.bm-btn`
-- `.bm-btn__open`
-- `.bm-btn__close`
-- `.bm-btn__take-photo`
+- `.bm-button`
+- `.bm-button__open`
+- `.bm-button__close`
+- `.bm-button__take-photo`
 - `.bm-error`
 - `.bm-error__text`
 
