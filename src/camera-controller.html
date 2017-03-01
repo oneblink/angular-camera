@@ -7,12 +7,14 @@
             ng-show="$ctrl.isCameraOpen"
             width="{{$ctrl.width}}"
             height="{{$ctrl.height}}"></video>
-    <img ng-src="{{$ctrl.ngModel.$viewValue}}"
-          camera-target
-          width="{{$ctrl.thumbWidth}}"
-          height="{{$ctrl.thumbHeight}}"
-          ng-show="$ctrl.ngModel.$viewValue"
-          class="bm-camera__image ng-hide" />
+    <figure>
+      <img ng-src="{{$ctrl.ngModel.$viewValue}}"
+            camera-target
+            width="{{$ctrl.thumbWidth}}"
+            height="{{$ctrl.thumbHeight}}"
+            ng-show="$ctrl.ngModel.$viewValue"
+            class="bm-camera__image ng-hide" />
+    </figure>
     <!-- allows the developer to include their own image manipulation controls -->
     <div ng-transclude></div>
   </div>
@@ -27,6 +29,10 @@
   </div>
   <div ng-if="$ctrl.webRTC"
         class="bm-camera__button-container">
+    <button class="bm-button bm-button__clear-photo"
+            name="take-photo"
+            ng-click="$ctrl.clearImage()"
+            ng-show="$ctrl.ngModel.$viewValue">Clear</button>
     <button class="bm-button bm-button__open"
             name="open-camera"
             ng-click="$ctrl.openCamera()"
@@ -39,10 +45,6 @@
             name="take-photo"
             ng-click="$ctrl.takePhoto()"
             ng-show="$ctrl.isCameraOpen">Take Photo</button>
-    <button class="bm-button bm-button__clear-photo"
-            name="take-photo"
-            ng-click="$ctrl.clearImage()"
-            ng-show="$ctrl.ngModel.$viewValue">Clear</button>
 
     <div class="bm-error"
           ng-show="$ctrl.error">
@@ -51,12 +53,12 @@
   </div>
   <div ng-if="!$ctrl.webRTC"
         class="bm-camera__button-container">
-    <button class="bm-button bm-button__take-photo"
-            name="open-camera"
-            ng-click="$ctrl.takePhoto()">Take Photo</button>
     <button class="bm-button bm-button__clear-photo"
             name="take-photo"
             ng-click="$ctrl.clearImage()"
             ng-show="$ctrl.ngModel.$viewValue">Clear</button>
+    <button class="bm-button bm-button__take-photo"
+            name="open-camera"
+            ng-click="$ctrl.takePhoto()">Take Photo</button>
   </div>
 </div>
