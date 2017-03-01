@@ -2,11 +2,12 @@
 
 const DEFAULT_WIDTH = 640
 const DEFAULT_HEIGHT = 480
-const DEFAULT_THUMB_WIDTH = 128
-const DEFAULT_THUMB_HEIGHT = 96
+const DEFAULT_THUMB_WIDTH = 320
+const DEFAULT_THUMB_HEIGHT = 240
+const CLEAR_CONFIRM = 'Are you sure you want to clear?'
 
-CameraController.$inject = ['$scope', '$element', 'Camera']
-function CameraController ($scope, $element, Camera) {
+CameraController.$inject = ['$scope', '$element', '$window', 'Camera']
+function CameraController ($scope, $element, $window, Camera) {
   const vm = this
   let initialized = false
 
@@ -120,7 +121,9 @@ function CameraController ($scope, $element, Camera) {
   }
 
   vm.clearImage = function clearImage () {
-    vm.ngModel.$setViewValue(null)
+    if ($window.confirm(CLEAR_CONFIRM)) {
+      vm.ngModel.$setViewValue(null)
+    }
   }
 
   vm.useDevice = function useDevice () {

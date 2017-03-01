@@ -1,5 +1,6 @@
 <div class="bm-camera">
-  <div class="bm-camera__image-container">
+  <div class="bm-camera__video-image-container">
+    <figure class="bm-camera__video-container">
     <video class="bm-camera__video"
             autoplay
             width="{{$ctrl.width}}"
@@ -7,7 +8,8 @@
             ng-show="$ctrl.isCameraOpen"
             width="{{$ctrl.width}}"
             height="{{$ctrl.height}}"></video>
-    <figure>
+    </figure>
+    <figure class="bm-camera__image-container">
       <img ng-src="{{$ctrl.ngModel.$viewValue}}"
             camera-target
             width="{{$ctrl.thumbWidth}}"
