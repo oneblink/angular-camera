@@ -54,8 +54,8 @@ describe('Camera Component - Access Granted', () => {
         expect(ctrl).not.toBe(null)
         expect(ctrl.width).toBe(DEFAULT_WIDTH)
         expect(ctrl.height).toBe(DEFAULT_HEIGHT)
-        expect(ctrl.thumbWidth).toBe(100)
-        expect(ctrl.thumbHeight).toBe(100)
+        expect(ctrl.thumbWidth).toBe(128)
+        expect(ctrl.thumbHeight).toBe(96)
         expect(ctrl.webRTC).toBe(true)
       })
 
@@ -180,6 +180,35 @@ describe('Camera Component - Access Granted', () => {
         expect(ctrl.isCameraOpen).toBe(false)
         done()
       }).catch(done.fail)
+    })
+  })
+
+  describe('#clearImage', () => {
+    const setViewValueSpy = jasmine.createSpy('$setViewValueSpy')
+
+    beforeEach(() => {
+      const locals = {
+        $scope: $rootScope.$new(),
+        $element: angular.element('<div></div>')
+      }
+      const bindings = {
+        ngModel: {
+          '$setViewValue': setViewValueSpy
+        }
+      }
+      ctrl = $componentController('bmCamera', locals, bindings)
+
+      ctrl.$onInit()
+    })
+
+    afterEach(() => {
+      setViewValueSpy.calls.reset()
+    })
+
+    it('should clear the ngModel value', () => {
+      ctrl.clearImage()
+      expect(setViewValueSpy.calls.count()).toBe(1)
+      expect(setViewValueSpy.calls.argsFor(0)[0]).toEqual(null)
     })
   })
 })
