@@ -1,14 +1,13 @@
 {
   "name": "@blinkmobile/angular-camera",
   "description": "An angular wrapper around @blinkmobile/camera",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "author": "Simon Dobie <simon@blinkmobile.com.au> (https://github.com/simonmarklar)",
   "bugs": {
     "url": "https://github.com/blinkmobile/angular-camera/issues"
   },
   "dependencies": {
-    "@blinkmobile/camera": "0.0.4",
-    "angular": "^1.6.1"
+    "@blinkmobile/camera": "0.0.4"
   },
   "devDependencies": {
     "angular": "^1.6.1",
@@ -24,9 +23,7 @@
     "flow-bin": "^0.37.1",
     "gulp": "^3.9.1",
     "gulp-angular-embed-templates": "^2.3.0",
-    "gulp-ng-annotate": "^2.0.0",
     "gulp-rename": "^1.2.2",
-    "gulp-rollup": "^2.5.1",
     "gulp-uglify": "^2.0.0",
     "gulp-util": "^3.0.8",
     "jasmine-core": "^2.5.2",
@@ -46,7 +43,6 @@
     "rollup-plugin-commonjs": "^6.0.0",
     "rollup-plugin-eslint": "^3.0.0",
     "rollup-plugin-html": "^0.2.1",
-    "rollup-plugin-inject": "^2.0.0",
     "rollup-plugin-node-resolve": "^2.0.0"
   },
   "directories": {
@@ -57,7 +53,9 @@
     "node": ">=7",
     "npm": ">=3"
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "homepage": "https://github.com/blinkmobile/angular-camera#readme",
   "keywords": [],
   "license": "MIT",
