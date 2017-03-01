@@ -13,6 +13,7 @@ We use the BEM naming conventions, with the following classes
 - `.bm-button__open`
 - `.bm-button__close`
 - `.bm-button__take-photo`
+- `.bm-button__clear-photo`
 - `.bm-error`
 - `.bm-error__text`
 
