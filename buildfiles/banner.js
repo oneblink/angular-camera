@@ -5,7 +5,7 @@ function devBanner (pkg) {
  * ${pkg.name}: v${pkg.version}
  * ${pkg.homepage}
  *
- * Copyright ${new Date(Date.now()).getFullYear()} BlinkMobile
+ * Copyright ${new Date(Date.now()).getFullYear()} Blink Mobile Technologies
  * Released under the ${pkg.license} license
  *
  * ${pkg.description}
@@ -16,7 +16,7 @@ function devBanner (pkg) {
 function prodBanner (pkg) {
   return `/*
  * ${pkg.name}: v${pkg.version} | ${pkg.homepage}
- * (c) ${new Date(Date.now()).getFullYear()} BlinkMobile | Released under the ${pkg.license} license
+ * (c) ${new Date(Date.now()).getFullYear()} Blink Mobile Technologies | Released under the ${pkg.license} license
  */
 `
 }

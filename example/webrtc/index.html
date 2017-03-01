@@ -32,8 +32,6 @@
     <canvas id="temp" style="display:none"></canvas>
 
     <bm-camera ng-model="stillImage2" width="{{width}}" height="{{height}}" on-camera-error="cameraError(err)">
-
-      <img class="ng-hide" ng-src="{{stillImage2}}" camera-target ng-show="stillImage2"/>
       <div class="btn-group row" data-ng-show="stillImage2">
         <button class="btn" data-ng-click="rotateLeft(stillImage2)">Rotate Left</button>
         <button class="btn" data-ng-click="rotateRight(stillImage2)">Rotate Right</button>
