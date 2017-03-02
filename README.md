@@ -1,4 +1,4 @@
-[![npm](https://img.shields.io/npm/v/@blinkmobile/blink-angular-camera.svg?maxAge=2592000)](https://www.npmjs.com/package/@blinkmobile/blink-angular-camera) [![Travis CI Status](https://travis-ci.org/blinkmobile/angular-camera.svg?branch=master)](https://travis-ci.org/blinkmobile/angular-camera)
+[![npm](https://img.shields.io/npm/v/@blinkmobile/angular-camera.svg?maxAge=2592000)](https://www.npmjs.com/package/@blinkmobile/angular-camera) [![Travis CI Status](https://travis-ci.org/blinkmobile/angular-camera.svg?branch=master)](https://travis-ci.org/blinkmobile/angular-camera)
 
 # Angular 1 Camera
 
