@@ -2,11 +2,12 @@
 
 const DEFAULT_WIDTH = 640
 const DEFAULT_HEIGHT = 480
-const DEFAULT_THUMB_WIDTH = 100
-const DEFAULT_THUMB_HEIGHT = 100
+const DEFAULT_THUMB_WIDTH = 320
+const DEFAULT_THUMB_HEIGHT = 240
+const CLEAR_CONFIRM = 'Are you sure you want to clear?'
 
-CameraController.$inject = ['$scope', '$element', 'Camera']
-function CameraController ($scope, $element, Camera) {
+CameraController.$inject = ['$scope', '$element', '$window', 'Camera']
+function CameraController ($scope, $element, $window, Camera) {
   const vm = this
   let initialized = false
 
@@ -91,7 +92,7 @@ function CameraController ($scope, $element, Camera) {
              .catch((err) => {
                $scope.$apply(() => {
                  vm.error = err.name === 'NotAllowedError' ? 'You must grant access to your webcam to take photos'
-                                                            : null
+                                                           : null
                   // eslint-disable-next-line no-console
                  console.warn(`There was an error opening the camera: ${err}`)
                  vm.onCameraError({err: err})
@@ -117,6 +118,12 @@ function CameraController ($scope, $element, Camera) {
       console.warn(`There was an error opening the camera: ${err}`)
       vm.onCameraError({err: err})
     })
+  }
+
+  vm.clearImage = function clearImage () {
+    if ($window.confirm(CLEAR_CONFIRM)) {
+      vm.ngModel.$setViewValue(null)
+    }
   }
 
   vm.useDevice = function useDevice () {

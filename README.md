@@ -56,12 +56,14 @@ Various options can be set via element attributes. See the [example/webrtc](webr
 ### <a name="width"></a> width
 ### <a name="height"></a> height
 
-Default: 640x480
+Default: 640x480 (4:3 ratio)
 
 Width and Height control the size of the image captured from the camera. It is important to note that not all Webcams and cameras support the same sizes. More often than not, the default size will suffice.
 
 ### thumbWidth
 ### thumbHeight
+
+Default 128x96 (4:3 ratio)
 
 The size to display the thumbnail of the image camptured by the camera.
 

@@ -3,6 +3,8 @@
 We use the BEM naming conventions, with the following classes
 
 - `.bm-camera`
+- `.bm-camera__video-image-container`
+- `.bm-camera__video-container`
 - `.bm-camera__image-container`
 - `.bm-camera__video`
 - `.bm-camera__image`
@@ -13,6 +15,7 @@ We use the BEM naming conventions, with the following classes
 - `.bm-button__open`
 - `.bm-button__close`
 - `.bm-button__take-photo`
+- `.bm-button__clear-photo`
 - `.bm-error`
 - `.bm-error__text`
 
