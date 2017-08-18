@@ -13,6 +13,7 @@ export default {
     height: '@?',
     thumbWidth: '@?',
     thumbHeight: '@?',
+    showDeviceSelect: '@?',
     cameraOptions: '<?',
     onCameraError: '&?',
     onCameraOpen: '&?'
