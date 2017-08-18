@@ -106,7 +106,10 @@ function CameraController ($scope, $element, $window, Camera) {
   }
 
   vm.takePhoto = function takePhoto () {
-    vm.isCameraOpen = false
+    if (vm.isCameraOpen) {
+      return
+    }
+    vm.isCameraOpen = true
     return vm.camera.getPicture().then((img) => {
       $scope.$apply(() => {
         vm.ngModel.$setViewValue(img)
@@ -116,6 +119,7 @@ function CameraController ($scope, $element, $window, Camera) {
       vm.error = err.toString()
       // eslint-disable-next-line no-console
       console.warn(`There was an error opening the camera: ${err}`)
+      vm.closeCamera()
       vm.onCameraError({err: err})
     })
   }
