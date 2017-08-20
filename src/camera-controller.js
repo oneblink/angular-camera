@@ -10,6 +10,7 @@ CameraController.$inject = ['$scope', '$element', '$window', 'Camera']
 function CameraController ($scope, $element, $window, Camera) {
   const vm = this
   let initialized = false
+  let takingPhoto = false
 
   function toWebRTCOptions () {
     const userDefinedOptions = (vm.cameraOptions && vm.cameraOptions.video) || {}
@@ -103,13 +104,14 @@ function CameraController ($scope, $element, $window, Camera) {
   vm.closeCamera = function closeCamera () {
     vm.camera.close && vm.camera.close()
     vm.isCameraOpen = false
+    takingPhoto = false
   }
 
   vm.takePhoto = function takePhoto () {
-    if (vm.isCameraOpen) {
+    if (takingPhoto) {
       return
     }
-    vm.isCameraOpen = true
+    takingPhoto = true
     return vm.camera.getPicture().then((img) => {
       $scope.$apply(() => {
         vm.ngModel.$setViewValue(img)

@@ -67,6 +67,10 @@ Default 128x96 (4:3 ratio)
 
 The size to display the thumbnail of the image camptured by the camera.
 
+### showDeviceSelect
+
+If truthy, a select box with the available devices will be displayed, allowing the user to select a device.
+
 ## Callbacks
 
 ### onCameraOpen(videoEl)

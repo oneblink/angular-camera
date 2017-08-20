@@ -21,7 +21,7 @@
     <div ng-transclude></div>
   </div>
   <div class="bm-camera__selector-container"
-       ng-show="$ctrl.camera.availableDevices.length > 1">
+       ng-show="$ctrl.showDeviceSelect && $ctrl.camera.availableDevices.length > 1">
     <select class="bm-camera__selector"
             ng-model="$ctrl.selectedDevice"
             ng-options="device.label for device in $ctrl.camera.availableDevices"
