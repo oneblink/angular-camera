@@ -35,7 +35,7 @@ const MODULE_NAME = 'bmCameraFactory'
 
 let banner = PROD_BUILD ? prodBanner(pkg) : devBanner(pkg)
 
-const makeBundle = function (entry, destFilename) {
+const makeBundle = function (input, destFilename) {
   // notify the developer about what is being built
   // eslint-disable-next-line
   console.log(`Creating a ${PROD_BUILD ? 'production' : 'development'} build
@@ -45,8 +45,7 @@ ${banner.replace(/^\/?\s?\*\/?/gm, '')}`)
   const plugins = [
     resolve({
       jsnext: true,
-      main: true,
-      browser: true
+      main: true
     }),
     commonjs(),
     eslint({
@@ -58,12 +57,12 @@ ${banner.replace(/^\/?\s?\*\/?/gm, '')}`)
     })
   ]
 
-  return rollup({entry, plugins})
+  return rollup({input, entry: input, plugins})
     .then(function (bundle) {
       const bundleOpts = {
         format: MODULE_FORMAT,
-        moduleName: MODULE_NAME,
-        dest: `${DEST}/${destFilename}`,
+        name: MODULE_NAME,
+        file: `${DEST}/${destFilename}`,
         banner: banner
       }
 
@@ -77,7 +76,7 @@ const minify = function (fileName) {
   return (done) => pump([
     gulp.src(`${DEST}/${fileName}`),
     rename(minifiedName`${fileName}`),
-    uglify({preserveComments: 'license'}),
+    uglify(),
     gulp.dest(DEST)
   ], done)
 }
@@ -93,11 +92,11 @@ const karmaFiles = [
   'node_modules/angular/angular.js',
   'node_modules/angular-mocks/angular-mocks.js',
   'node_modules/getusermedia/getusermedia.bundle.js',
-  'dist/bm-angular-camera.min.js',
+  'dist/bm-angular-camera.js',
   'test/**/*.js'
 ]
 
-gulp.task('test', ['build-prod'], (done) => {
+gulp.task('test', ['clean', 'build-prod', 'minify'], (done) => {
   new KarmaServer({
     configFile: path.join(__dirname, './karma.conf.js'),
     singleRun: true,
@@ -105,7 +104,7 @@ gulp.task('test', ['build-prod'], (done) => {
   }, done).start()
 })
 
-gulp.task('test-single-run', ['build-prod'], (done) => {
+gulp.task('test-single-run', ['clean', 'build-prod', 'minify'], (done) => {
   new KarmaServer({
     configFile: path.join(__dirname, './karma.conf.js'),
     singleRun: true,
@@ -120,13 +119,17 @@ gulp.task('build', (done) => {
     cb = minify(FILENAME)
   }
 
-  makeBundle(ENTRY_POINT, FILENAME).then(cb(done))
+  return makeBundle(ENTRY_POINT, FILENAME).then(cb(done))
 })
 
-gulp.task('build-prod', (done) => {
+gulp.task('build-prod', ['clean'], () => {
   // force the banner to be production
   banner = prodBanner(pkg)
-  makeBundle(ENTRY_POINT, FILENAME).then(minify(FILENAME)(done))
+  return makeBundle(ENTRY_POINT, FILENAME)
 })
 
-gulp.task('default', ['clean', 'build', 'test-single-run'], () => {})
+gulp.task('minify', ['clean', 'build-prod'], (done) => {
+  minify(FILENAME)(done)
+})
+
+gulp.task('default', ['clean', 'build-prod', 'minify', 'test-single-run'], () => {})

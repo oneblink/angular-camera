@@ -244,7 +244,7 @@ describe('Camera Component - Access Denied', () => {
   beforeEach(module('bmCamera'))
 
   beforeEach(makeCameraServiceInjector({
-    open: () => Promise.reject({name: 'NotAllowedError'})
+    open: () => Promise.reject({name: 'NotAllowedError'}) // eslint-disable-line prefer-promise-reject-errors
   }))
 
   beforeEach(inject((_$componentController_, _$injector_, _$rootScope_) => {
@@ -256,7 +256,7 @@ describe('Camera Component - Access Denied', () => {
     cameraOpenSpy = jasmine.createSpy('onCameraOpen')
     cameraErrorSpy = jasmine.createSpy('onCameraError')
 
-    cameraOpenSpy.and.returnValue(Promise.reject({name: 'NotAllowedError'}))
+    cameraOpenSpy.and.returnValue(Promise.reject({name: 'NotAllowedError'})) // eslint-disable-line prefer-promise-reject-errors
   })
 
   beforeEach(() => {

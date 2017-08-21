@@ -4,9 +4,9 @@
  */
 
 (function (global, factory) {
-  typeof exports === 'object' && typeof module !== 'undefined' ? factory() :
-  typeof define === 'function' && define.amd ? define(factory) :
-  (factory());
+	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
+	typeof define === 'function' && define.amd ? define(factory) :
+	(global.bmCameraFactory = factory());
 }(this, (function () { 'use strict';
 
 var DEFAULT_WIDTH = 640;
@@ -19,6 +19,7 @@ CameraController.$inject = ['$scope', '$element', '$window', 'Camera'];
 function CameraController($scope, $element, $window, Camera) {
   var vm = this;
   var initialized = false;
+  var takingPhoto = false;
 
   function toWebRTCOptions() {
     var userDefinedOptions = vm.cameraOptions && vm.cameraOptions.video || {};
@@ -114,10 +115,14 @@ function CameraController($scope, $element, $window, Camera) {
   vm.closeCamera = function closeCamera() {
     vm.camera.close && vm.camera.close();
     vm.isCameraOpen = false;
+    takingPhoto = false;
   };
 
   vm.takePhoto = function takePhoto() {
-    vm.isCameraOpen = false;
+    if (takingPhoto) {
+      return;
+    }
+    takingPhoto = true;
     return vm.camera.getPicture().then(function (img) {
       $scope.$apply(function () {
         vm.ngModel.$setViewValue(img);
@@ -127,6 +132,7 @@ function CameraController($scope, $element, $window, Camera) {
       vm.error = err.toString();
       // eslint-disable-next-line no-console
       console.warn('There was an error opening the camera: ' + err);
+      vm.closeCamera();
       vm.onCameraError({ err: err });
     });
   };
@@ -142,7 +148,7 @@ function CameraController($scope, $element, $window, Camera) {
   };
 }
 
-var template = "<div class=\"bm-camera\">\n  <div class=\"bm-camera__video-image-container\">\n    <figure class=\"bm-camera__video-container\">\n    <video class=\"bm-camera__video\" autoplay width=\"{{$ctrl.width}}\" height=\"{{$ctrl.height}}\" ng-show=\"$ctrl.isCameraOpen\" width=\"{{$ctrl.width}}\" height=\"{{$ctrl.height}}\"></video>\n    </figure>\n    <figure class=\"bm-camera__image-container\">\n      <img ng-src=\"{{$ctrl.ngModel.$viewValue}}\" camera-target width=\"{{$ctrl.thumbWidth}}\" height=\"{{$ctrl.thumbHeight}}\" ng-show=\"$ctrl.ngModel.$viewValue\" class=\"bm-camera__image ng-hide\">\n    </figure>\n    <!-- allows the developer to include their own image manipulation controls -->\n    <div ng-transclude></div>\n  </div>\n  <div class=\"bm-camera__selector-container\" ng-show=\"$ctrl.camera.availableDevices.length > 1\">\n    <select class=\"bm-camera__selector\" ng-model=\"$ctrl.selectedDevice\" ng-options=\"device.label for device in $ctrl.camera.availableDevices\" ng-change=\"$ctrl.useDevice()\">\n\n    </select>\n  </div>\n  <div ng-if=\"$ctrl.webRTC\" class=\"bm-camera__button-container\">\n    <button class=\"bm-button bm-button__clear-photo\" name=\"take-photo\" ng-click=\"$ctrl.clearImage()\" ng-show=\"$ctrl.ngModel.$viewValue\">Clear</button>\n    <button class=\"bm-button bm-button__open\" name=\"open-camera\" ng-click=\"$ctrl.openCamera()\" ng-hide=\"$ctrl.isCameraOpen\">Open Camera</button>\n    <button class=\"bm-button bm-button__close ng-hide\" name=\"close-camera\" ng-click=\"$ctrl.closeCamera()\" ng-show=\"$ctrl.isCameraOpen\">Close Camera</button>\n    <button class=\"bm-button bm-button__take-photo\" name=\"take-photo\" ng-click=\"$ctrl.takePhoto()\" ng-show=\"$ctrl.isCameraOpen\">Take Photo</button>\n\n    <div class=\"bm-error\" ng-show=\"$ctrl.error\">\n      <p class=\"bm-error__text\">{{::$ctrl.error}}</p>\n    </div>\n  </div>\n  <div ng-if=\"!$ctrl.webRTC\" class=\"bm-camera__button-container\">\n    <button class=\"bm-button bm-button__clear-photo\" name=\"take-photo\" ng-click=\"$ctrl.clearImage()\" ng-show=\"$ctrl.ngModel.$viewValue\">Clear</button>\n    <button class=\"bm-button bm-button__take-photo\" name=\"open-camera\" ng-click=\"$ctrl.takePhoto()\">Take Photo</button>\n  </div>\n</div>\n";
+var template = "<div class=\"bm-camera\">\n  <div class=\"bm-camera__video-image-container\">\n    <figure class=\"bm-camera__video-container\">\n    <video class=\"bm-camera__video\" autoplay width=\"{{$ctrl.width}}\" height=\"{{$ctrl.height}}\" ng-show=\"$ctrl.isCameraOpen\" width=\"{{$ctrl.width}}\" height=\"{{$ctrl.height}}\"></video>\n    </figure>\n    <figure class=\"bm-camera__image-container\">\n      <img ng-src=\"{{$ctrl.ngModel.$viewValue}}\" camera-target width=\"{{$ctrl.thumbWidth}}\" height=\"{{$ctrl.thumbHeight}}\" ng-show=\"$ctrl.ngModel.$viewValue\" class=\"bm-camera__image ng-hide\">\n    </figure>\n    <!-- allows the developer to include their own image manipulation controls -->\n    <div ng-transclude></div>\n  </div>\n  <div class=\"bm-camera__selector-container\" ng-show=\"$ctrl.showDeviceSelect && $ctrl.camera.availableDevices.length > 1\">\n    <select class=\"bm-camera__selector\" ng-model=\"$ctrl.selectedDevice\" ng-options=\"device.label for device in $ctrl.camera.availableDevices\" ng-change=\"$ctrl.useDevice()\">\n\n    </select>\n  </div>\n  <div ng-if=\"$ctrl.webRTC\" class=\"bm-camera__button-container\">\n    <button class=\"bm-button bm-button__clear-photo\" name=\"take-photo\" ng-click=\"$ctrl.clearImage()\" ng-show=\"$ctrl.ngModel.$viewValue\">Clear</button>\n    <button class=\"bm-button bm-button__open\" name=\"open-camera\" ng-click=\"$ctrl.openCamera()\" ng-hide=\"$ctrl.isCameraOpen\">Open Camera</button>\n    <button class=\"bm-button bm-button__close ng-hide\" name=\"close-camera\" ng-click=\"$ctrl.closeCamera()\" ng-show=\"$ctrl.isCameraOpen\">Close Camera</button>\n    <button class=\"bm-button bm-button__take-photo\" name=\"take-photo\" ng-click=\"$ctrl.takePhoto()\" ng-show=\"$ctrl.isCameraOpen\">Take Photo</button>\n\n    <div class=\"bm-error\" ng-show=\"$ctrl.error\">\n      <p class=\"bm-error__text\">{{::$ctrl.error}}</p>\n    </div>\n  </div>\n  <div ng-if=\"!$ctrl.webRTC\" class=\"bm-camera__button-container\">\n    <button class=\"bm-button bm-button__clear-photo\" name=\"take-photo\" ng-click=\"$ctrl.clearImage()\" ng-show=\"$ctrl.ngModel.$viewValue\">Clear</button>\n    <button class=\"bm-button bm-button__take-photo\" name=\"open-camera\" ng-click=\"$ctrl.takePhoto()\">Take Photo</button>\n  </div>\n</div>\n";
 
 var CameraComponent = {
   controller: CameraController,
@@ -156,6 +162,7 @@ var CameraComponent = {
     height: '@?',
     thumbWidth: '@?',
     thumbHeight: '@?',
+    showDeviceSelect: '@?',
     cameraOptions: '<?',
     onCameraError: '&?',
     onCameraOpen: '&?'
@@ -175,10 +182,9 @@ function CordovaCamera() {
     encodingType: Camera.EncodingType.PNG,
     sourceType: Camera.PictureSourceType.CAMERA,
     correctOrientation: true
-  };
-  /* eslint-enable no-undef */
+    /* eslint-enable no-undef */
 
-  privateVars.set(this, { result: null });
+  };privateVars.set(this, { result: null });
 }
 
 // instance methods
@@ -390,6 +396,8 @@ function CameraService() {
 }
 
 // eslint-disable-next-line no-undef
-angular.module('bmCamera', []).service('Camera', CameraService).component('bmCamera', CameraComponent);
+var angularCamera = angular.module('bmCamera', []).service('Camera', CameraService).component('bmCamera', CameraComponent);
+
+return angularCamera;
 
 })));
