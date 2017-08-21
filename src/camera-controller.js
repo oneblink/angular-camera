@@ -84,21 +84,20 @@ function CameraController ($scope, $element, $window, Camera) {
 
   vm.openCamera = function openCamera () {
     return vm.camera.open()
-             .then(() => vm.camera.getDevices())
-             .then(() => $scope.$apply(() => {
-               vm.isCameraOpen = true && vm.webRTC
-               vm.error = null
-               vm.onCameraOpen({videoEl: vm.videoEl})
-             }))
-             .catch((err) => {
-               $scope.$apply(() => {
-                 vm.error = err.name === 'NotAllowedError' ? 'You must grant access to your webcam to take photos'
-                                                           : null
-                  // eslint-disable-next-line no-console
-                 console.warn(`There was an error opening the camera: ${err}`)
-                 vm.onCameraError({err: err})
-               })
-             })
+      .then(() => vm.camera.getDevices())
+      .then(() => $scope.$apply(() => {
+        vm.isCameraOpen = true && vm.webRTC
+        vm.error = null
+        vm.onCameraOpen({videoEl: vm.videoEl})
+      }))
+      .catch((err) => {
+        $scope.$apply(() => {
+          vm.error = err.name === 'NotAllowedError' ? 'You must grant access to your webcam to take photos' : null
+          // eslint-disable-next-line no-console
+          console.warn(`There was an error opening the camera: ${err}`)
+          vm.onCameraError({err: err})
+        })
+      })
   }
 
   vm.closeCamera = function closeCamera () {
