@@ -2,6 +2,8 @@
 
 # Angular 1 Camera
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/blinkmobile/angular-camera.svg)](https://greenkeeper.io/)
+
 An Angular 1 wrapper around [https://github.com/blinkmobile/camera](@blinkmobile/camera)
 
 # Installation
