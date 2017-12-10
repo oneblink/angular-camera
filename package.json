@@ -32,7 +32,7 @@
     "gulp-util": "^3.0.8",
     "jasmine-core": "^2.5.2",
     "karma": "^1.4.1",
-    "karma-babel-preprocessor": "^6.0.1",
+    "karma-babel-preprocessor": "^7.0.0",
     "karma-chrome-launcher": "^2.0.0",
     "karma-detect-browsers": "^2.2.4",
     "karma-edge-launcher": "^0.4.1",
