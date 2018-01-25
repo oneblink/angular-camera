@@ -2,8 +2,8 @@ language: node_js
 sudo: true
 dist: trusty
 node_js:
-  - '6'
-  - '7'
+  - '8'
+  - '9'
 env:
   global:
     - CXX=g++-4.8
