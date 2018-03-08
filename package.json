@@ -24,7 +24,7 @@
     "eslint-plugin-promise": "^3.5.0",
     "eslint-plugin-standard": "^3.0.1",
     "fixpack": "^2.3.1",
-    "flow-bin": "^0.64.0",
+    "flow-bin": "^0.67.1",
     "gulp": "^3.9.1",
     "gulp-angular-embed-templates": "^2.3.0",
     "gulp-rename": "^1.2.2",
