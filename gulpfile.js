@@ -96,22 +96,32 @@ const karmaFiles = [
   'test/**/*.js'
 ]
 
-gulp.task('test', ['clean', 'build-prod', 'minify'], (done) => {
+gulp.task('build-prod', gulp.series('clean', () => {
+  // force the banner to be production
+  banner = prodBanner(pkg)
+  return makeBundle(ENTRY_POINT, FILENAME)
+}))
+
+gulp.task('minify', gulp.series('clean', 'build-prod', (done) => {
+  minify(FILENAME)(done)
+}))
+
+gulp.task('test', gulp.series('clean', 'build-prod', 'minify', (done) => {
   new KarmaServer({
     configFile: path.join(__dirname, './karma.conf.js'),
     singleRun: true,
     files: karmaFiles
   }, done).start()
-})
+}))
 
-gulp.task('test-single-run', ['clean', 'build-prod', 'minify'], (done) => {
+gulp.task('test-single-run', gulp.series('clean', 'build-prod', 'minify', (done) => {
   new KarmaServer({
     configFile: path.join(__dirname, './karma.conf.js'),
     singleRun: true,
     autoWatch: false,
     files: karmaFiles
   }, done).start()
-})
+}))
 
 gulp.task('build', (done) => {
   let cb = (d) => d()
@@ -122,14 +132,4 @@ gulp.task('build', (done) => {
   return makeBundle(ENTRY_POINT, FILENAME).then(cb(done))
 })
 
-gulp.task('build-prod', ['clean'], () => {
-  // force the banner to be production
-  banner = prodBanner(pkg)
-  return makeBundle(ENTRY_POINT, FILENAME)
-})
-
-gulp.task('minify', ['clean', 'build-prod'], (done) => {
-  minify(FILENAME)(done)
-})
-
-gulp.task('default', ['clean', 'build-prod', 'minify', 'test-single-run'], () => {})
+gulp.task('default', gulp.series('clean', 'build-prod', 'minify', 'test-single-run', () => {}))
