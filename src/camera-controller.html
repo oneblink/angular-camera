@@ -14,8 +14,8 @@
             camera-target
             width="{{$ctrl.thumbWidth}}"
             height="{{$ctrl.thumbHeight}}"
-            ng-show="$ctrl.ngModel.$viewValue"
-            class="bm-camera__image ng-hide" />
+            ng-if="$ctrl.ngModel.$viewValue"
+            class="bm-camera__image" />
     </figure>
     <!-- allows the developer to include their own image manipulation controls -->
     <div ng-transclude></div>
