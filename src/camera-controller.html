@@ -31,19 +31,23 @@
   </div>
   <div ng-if="$ctrl.webRTC"
         class="bm-camera__button-container">
-    <button class="bm-button bm-button__clear-photo"
+    <button type="button"
+            class="bm-button bm-button__clear-photo"
             name="take-photo"
             ng-click="$ctrl.clearImage()"
             ng-show="$ctrl.ngModel.$viewValue">Clear</button>
-    <button class="bm-button bm-button__open"
+    <button type="button"
+            class="bm-button bm-button__open"
             name="open-camera"
             ng-click="$ctrl.openCamera()"
             ng-hide="$ctrl.isCameraOpen">Open Camera</button>
-    <button class="bm-button bm-button__close ng-hide"
+    <button type="button"
+            class="bm-button bm-button__close ng-hide"
             name="close-camera"
             ng-click="$ctrl.closeCamera()"
             ng-show="$ctrl.isCameraOpen">Close Camera</button>
-    <button class="bm-button bm-button__take-photo"
+    <button type="button"
+            class="bm-button bm-button__take-photo"
             name="take-photo"
             ng-click="$ctrl.takePhoto()"
             ng-show="$ctrl.isCameraOpen">Take Photo</button>
@@ -55,11 +59,13 @@
   </div>
   <div ng-if="!$ctrl.webRTC"
         class="bm-camera__button-container">
-    <button class="bm-button bm-button__clear-photo"
+    <button type="button"
+            class="bm-button bm-button__clear-photo"
             name="take-photo"
             ng-click="$ctrl.clearImage()"
             ng-show="$ctrl.ngModel.$viewValue">Clear</button>
-    <button class="bm-button bm-button__take-photo"
+    <button type="button"
+            class="bm-button bm-button__take-photo"
             name="open-camera"
             ng-click="$ctrl.takePhoto()">Take Photo</button>
   </div>
