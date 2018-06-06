@@ -9,6 +9,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
 
+## 1.1.3
+
 ### Added
 
 - `type="button"` to allow buttons
