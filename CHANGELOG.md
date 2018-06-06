@@ -9,6 +9,12 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
 
+## 1.1.4
+
+### Fixed
+
+- build files not built for `[RELEASE] 1.1.3`
+
 ## 1.1.3
 
 ### Added
