@@ -40,8 +40,8 @@ This component supports transclusion, easily allowing you to add your own button
 
 ```html
 <bm-camera ng-model="myStillImage" width="320" height="240" on-camera-error="myErrorHandler(err)">
-  <button ng-click="rotate(-90, myStillImage)">Rotate Left</button>
-  <button ng-click="rotate(90, myStillImage)">Rotate Right</button>
+  <button type="button" ng-click="rotate(-90, myStillImage)">Rotate Left</button>
+  <button type="button" ng-click="rotate(90, myStillImage)">Rotate Right</button>
 </bm-camera>
 ```
 

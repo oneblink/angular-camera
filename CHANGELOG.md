@@ -7,6 +7,12 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## Unreleased
+
+### Added
+
+- `type="button"` to allow buttons
+
 ## 1.1.2
 
 ### Changed

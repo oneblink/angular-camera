@@ -20,10 +20,10 @@
     <bm-camera ng-model="stillImage" width="{{resWidth}}" height="{{resHeight}}" on-camera-error="cameraError(err)" on-camera-open="cameraOpen(videoEl)">
     <p> Actual video size: {{actualWidth}} x {{actualHeight}}</p>
       <div class="btn-group">
-        <button class="btn" data-ng-click="setRes(320, 240)">320 x 240 (QVGA)</button>
-        <button class="btn" data-ng-click="setRes(640, 480)">640 x 480 (VGA)</button>
-        <button class="btn" data-ng-click="setRes(1280, 720)">1280 x 720 (HD)</button>
-        <button class="btn" data-ng-click="setRes(1920, 1080)">1920 x 1080 (Full HD)</button>
+        <button type="button" class="btn" data-ng-click="setRes(320, 240)">320 x 240 (QVGA)</button>
+        <button type="button" class="btn" data-ng-click="setRes(640, 480)">640 x 480 (VGA)</button>
+        <button type="button" class="btn" data-ng-click="setRes(1280, 720)">1280 x 720 (HD)</button>
+        <button type="button" class="btn" data-ng-click="setRes(1920, 1080)">1920 x 1080 (Full HD)</button>
       </div>
     </bm-camera>
 
@@ -33,8 +33,8 @@
 
     <bm-camera ng-model="stillImage2" width="{{width}}" height="{{height}}" on-camera-error="cameraError(err)">
       <div class="btn-group row" data-ng-show="stillImage2">
-        <button class="btn" data-ng-click="rotateLeft(stillImage2)">Rotate Left</button>
-        <button class="btn" data-ng-click="rotateRight(stillImage2)">Rotate Right</button>
+        <button type="button" class="btn" data-ng-click="rotateLeft(stillImage2)">Rotate Left</button>
+        <button type="button" class="btn" data-ng-click="rotateRight(stillImage2)">Rotate Right</button>
       </div>
     </bm-camera>
 

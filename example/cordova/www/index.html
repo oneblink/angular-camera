@@ -48,8 +48,8 @@
     <bm-camera ng-model="stillImage2" width="{{width}}" height="{{height}}" camera-options="{pictureSourceType: 0}">
       <img ng-src="{{stillImage2}}" camera-target />
       <div class="btn-group row" data-ng-show="stillImage2">
-        <button class="btn two columns" data-ng-click="rotateLeft(stillImage2)">Rotate Left</button>
-        <button class="btn two columns" data-ng-click="rotateRight(stillImage2)">Rotate Right</button>
+        <button type="button" class="btn two columns" data-ng-click="rotateLeft(stillImage2)">Rotate Left</button>
+        <button type="button" class="btn two columns" data-ng-click="rotateRight(stillImage2)">Rotate Right</button>
       </div>
     </bm-camera>
         <script type="text/javascript" src="cordova.js"></script>
