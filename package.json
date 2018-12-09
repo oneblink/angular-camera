@@ -47,7 +47,7 @@
     "rollup-plugin-commonjs": "^8.1.0",
     "rollup-plugin-eslint": "^4.0.0",
     "rollup-plugin-html": "^0.2.1",
-    "rollup-plugin-node-resolve": "^3.0.0"
+    "rollup-plugin-node-resolve": "^4.0.0"
   },
   "directories": {
     "examples": "example",
